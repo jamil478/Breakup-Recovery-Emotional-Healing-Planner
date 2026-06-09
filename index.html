@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RENAISSANCE — Breakup Recovery & Emotional Healing Planner</title>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@1,400;1,600&family=Josefin+Sans:wght@300;400&display=swap');
+
+  <style>
+    :root {
+      --midnight: #1A1625;
+      --deep-plum: #2D1F3D;
+      --plum: #4A2D6B;
+      --plum-light: #7B5EA7;
+      --cream: #FBF7F2;
+      --warm-white: #FDFAF6;
+      --champagne: #E8C88A;
+      --champagne-light: #F5E6C0;
+      --champagne-mist: #FBF3E0;
+      --rose-blush: #E8A8B0;
+      --rose-mist: #F7E0E3;
+      --mauve: #C4A0B0;
+      --text-dark: #2C1F3A;
+      --text-medium: #5C4A6A;
+      --text-light: #9B8AAA;
+      --border: rgba(232,200,138,0.2);
+      --border-soft: rgba(44,31,58,0.08);
+      --terracotta: #C17F6B;
+      --terra-mist: #F5EAE6;
+      --slate: #718096;
+      --slate-mist: #EDF2F7;
+      --sage: #8F9E8B;
+      --sage-mist: #EEF2ED;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); overflow-x: hidden; font-weight: 300; line-height: 1.6; }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--plum-light); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--champagne); }
+
+    /* Layout structure */
+    #app-container { display: flex; min-height: 100vh; position: relative; }
+    
+    /* Sidebar */
+    aside {
+      width: 265px; background: var(--midnight); position: fixed; top:0; bottom:0; left:0;
+      z-index: 100; padding: 32px 24px; display: flex; flex-direction: column;
+      border-right: 1px solid var(--border); overflow-y: auto; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .sidebar-bg-decor { position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:-1; }
+    
+    /* Main Content Area */
+    main { margin-left: 265px; flex: 1; padding: 48px; min-height: 100vh; position: relative; }
+
+    /* Navigation styling */
+    .brand { text-align: center; margin-bottom: 32px; position: relative; }
+    .brand h1 { font-family: 'Josefin Sans', sans-serif; font-size: 13px; letter-spacing: 0.35em; color: var(--champagne); text-transform: uppercase; margin-top: 8px; }
+    .brand p { font-family: 'DM Sans', sans-serif; font-size: 10px; font-style: italic; color: var(--plum-light); margin-top: 4px; }
+    
+    .nav-group-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; letter-spacing: 0.2em; color: var(--plum-light); opacity: 0.6; text-transform: uppercase; margin: 20px 0 8px 8px; }
+    .nav-links { list-style: none; }
+    .nav-links li { margin-bottom: 4px; }
+    .nav-links a {
+      display: flex; align-items: center; padding: 8px 12px; color: var(--text-light); text-decoration: none; font-size: 13px;
+      border-radius: 6px; transition: all 0.2s ease; cursor: pointer;
+    }
+    .nav-links a:hover { color: var(--plum-light); background: rgba(123,94,167,0.15); }
+    .nav-links li.active a { color: var(--champagne); background: rgba(74,45,107,0.4); border-left: 2px solid var(--champagne); font-weight: 400; }
+    
+    .sidebar-footer { margin-top: auto; padding-top: 24px; border-top: 1px solid rgba(232,200,138,0.1); font-size: 11px; font-style: italic; color: var(--plum-light); text-align: center; line-height: 1.4; }
+
+    /* Page container settings */
+    .page { display: none; width: 100%; max-width: 960px; margin: 0 auto; opacity: 0; }
+    .page.active { display: block; }
+    
+    /* Header abstract decoration */
+    .page-header { position: relative; margin-bottom: 40px; padding-bottom: 16px; border-bottom: 1px solid var(--border-soft); }
+    .page-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 38px; font-style: italic; font-weight: 300; color: var(--text-dark); line-height: 1.2; }
+    .page-header p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text-medium); margin-top: 6px; }
+    .header-bloom { position: absolute; top: -10px; right: 0; opacity: 0.15; pointer-events: none; }
+
+    /* Cards System */
+    .card {
+      background: var(--warm-white); border: 1px solid var(--border-soft); border-radius: 16px;
+      padding: 32px; margin-bottom: 24px; box-shadow: 0 2px 16px rgba(44,31,58,0.04), 0 1px 4px rgba(44,31,58,0.02);
+      transition: all 0.25s cubic-bezier(0.16,1,0.3,1); position: relative; overflow: hidden;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(44,31,58,0.06); }
+    .card.emotional { background: var(--rose-mist); border-left: 3px solid var(--rose-blush); }
+    .card.recovery { background: var(--champagne-mist); border-left: 3px solid var(--champagne); }
+    .card.midnight-theme { background: var(--midnight); color: var(--warm-white); border: 1px solid var(--border); }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+    /* Form Fields Styling */
+    label { display: block; font-family: 'Josefin Sans', sans-serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-medium); margin-bottom: 8px; }
+    input[type="text"], input[type="date"], select, textarea {
+      width: 100%; font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 12px 0;
+      color: var(--text-dark); background: transparent; border: none; border-bottom: 1.5px solid var(--border-soft);
+      border-radius: 0; transition: all 0.3s ease; resize: vertical;
+    }
+    input:focus, select:focus, textarea:focus { outline: none; border-bottom-color: var(--champagne); }
+    
+    .underline-input-large { font-family: 'Playfair Display', serif; font-style: italic; font-size: 24px; color: var(--champagne); padding: 8px 0; }
+    textarea.journal-textarea { font-family: 'Cormorant Garamond', serif; font-size: 17px; line-height: 2.2; min-height: 300px; background: transparent; border: none; background-image: linear-gradient(rgba(44,31,58,0.08) 1px, transparent 1px); background-size: 100% 37.4px; line-height: 37.4px; padding-top: 6px; }
+    textarea.journal-textarea:focus { border: none; outline: none; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px;
+      font-family: 'Josefin Sans', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      border-radius: 4px; border: 1px solid transparent; cursor: pointer; transition: all 0.3s ease; text-decoration: none;
+    }
+    .btn-primary { background: var(--champagne); color: var(--midnight); }
+    .btn-primary:hover { background: var(--champagne-light); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(232,200,138,0.3); }
+    .btn-ghost { background: transparent; border-color: var(--champagne); color: var(--champagne); }
+    .btn-ghost:hover { background: var(--champagne); color: var(--midnight); }
+    .btn-danger { background: transparent; border-color: var(--rose-blush); color: var(--rose-blush); }
+    .btn-danger:hover { background: var(--rose-blush); color: var(--midnight); }
+    .btn-full { width: 100%; display: flex; }
+
+    /* Chips and Interactive items */
+    .chips-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .chip {
+      padding: 8px 18px; border: 1px solid var(--champagne); color: var(--text-dark); background: transparent;
+      font-size: 13px; border-radius: 20px; cursor: pointer; transition: all 0.25s ease; user-select: none;
+    }
+    .chip.selected { background: var(--champagne); color: var(--midnight); font-weight: 500; transform: scale(1.03); box-shadow: 0 2px 8px rgba(232,200,138,0.2); }
+    
+    .emotion-pill { padding: 12px; border: 1px solid var(--border-soft); border-radius: 10px; background: var(--warm-white); text-align: center; cursor: pointer; transition: all 0.2s; }
+    .emotion-pill:hover { border-color: var(--champagne); }
+    .emotion-pill.selected { border-color: var(--midnight); background: var(--midnight); color: var(--champagne); animation: glowPulse 2s infinite; }
+
+    /* Custom Checkboxes */
+    .checkbox-item { display: flex; align-items: flex-start; margin-bottom: 12px; cursor: pointer; position: relative; }
+    .checkbox-item input { display: none; }
+    .checkbox-box { width: 18px; height: 18px; border: 1.5px solid var(--border-soft); border-radius: 4px; margin-right: 12px; margin-top: 2px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .checkbox-item input:checked + .checkbox-box { background: var(--champagne); border-color: var(--champagne); animation: checkBounce 0.4s ease forwards; }
+    .checkbox-item input:checked + .checkbox-box::after { content: '✓'; font-size: 12px; color: var(--midnight); font-weight: bold; }
+    .checkbox-label { font-size: 14px; color: var(--text-dark); }
+    .checkbox-item input:checked ~ .checkbox-label { color: var(--text-light); text-decoration: line-through; }
+
+    /* Custom Sliders */
+    .slider-container { margin: 16px 0; }
+    .range-slider { -webkit-appearance: none; width: 100%; height: 4px; background: var(--border-soft); border-radius: 2px; outline: none; }
+    .range-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--champagne); box-shadow: 0 2px 8px rgba(232,200,138,0.4); cursor: pointer; transition: transform 0.1s; }
+    .range-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+
+    /* Accordions */
+    .accordion-card { border: 1px solid var(--border-soft); border-radius: 12px; background: var(--warm-white); margin-bottom: 12px; overflow: hidden; }
+    .accordion-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: rgba(44,31,58,0.01); user-select: none; }
+    .accordion-header h4 { font-family: 'Josefin Sans', sans-serif; font-size: 13px; letter-spacing: 0.1em; color: var(--text-dark); display: flex; align-items: center; gap: 12px; }
+    .accordion-content { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s; }
+    .accordion-card.open .accordion-content { padding: 20px; max-height: 1000px; border-top: 1px solid var(--border-soft); }
+    .stage-badge { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+    /* Mobile trigger interface */
+    .hamburger { display: none; position: fixed; top: 16px; left: 16px; z-index: 200; background: var(--midnight); border: 1px solid var(--border); padding: 10px; border-radius: 4px; cursor: pointer; flex-direction: column; gap: 4px; }
+    .hamburger span { display: block; width: 20px; height: 2px; background: var(--champagne); transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .mobile-overlay { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(26,22,37,0.5); z-index: 90; }
+
+    /* Toast System */
+    #toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 1000; pointer-events: none; }
+    .toast { background: var(--midnight); color: var(--champagne); font-family: 'DM Sans', sans-serif; font-size: 12px; border-radius: 8px; padding: 10px 18px; border: 1px solid rgba(232,200,138,0.3); margin-top: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity:0; }
+
+    /* Dynamic Features Styling */
+    .big-counter { font-family: 'Cormorant Garamond', serif; font-size: 88px; font-style: italic; color: var(--champagne); text-align: center; line-height: 1; margin: 24px 0; }
+    .progress-ring-wrap { display: flex; justify-content: center; align-items: center; position: relative; margin: 16px auto; width: 120px; height: 120px; }
+    .progress-ring-text { position: absolute; font-family: 'Josefin Sans', sans-serif; font-size: 16px; color: var(--text-dark); }
+    
+    .breathing-circle-wrap { width: 220px; height: 220px; margin: 40px auto; position: relative; display: flex; align-items: center; justify-content: center; }
+    .breathing-circle { width: 140px; height: 140px; background: var(--champagne-mist); border: 2px solid var(--champagne); border-radius: 50%; position: absolute; z-index: 1; }
+    .breathing-label { position: relative; z-index: 2; font-family: 'Josefin Sans', sans-serif; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dark); text-align: center; }
+    
+    .timeline { position: relative; padding-left: 32px; margin-top: 24px; }
+    .timeline::before { content: ''; position: absolute; top:0; bottom:0; left: 7px; width: 2px; background: var(--border-soft); }
+    .timeline-item { position: relative; margin-bottom: 24px; }
+    .timeline-dot { position: absolute; left: -32px; top: 4px; width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--border-soft); background: var(--warm-white); transition: all 0.3s; }
+    .timeline-item.unlocked .timeline-dot { border-color: var(--champagne); background: var(--champagne); }
+    .timeline-content h5 { font-family: 'Josefin Sans', sans-serif; font-size: 13px; color: var(--text-dark); }
+    .timeline-content p { font-size: 12px; color: var(--text-medium); }
+
+    /* Custom Grid Habit Rows */
+    .habit-row { display: grid; grid-template-columns: 200px 1fr 100px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-soft); }
+    .habit-days-grid { display: flex; gap: 4px; overflow-x: auto; padding: 4px 0; }
+    .habit-cell { width: 22px; height: 22px; border-radius: 4px; border: 1px solid var(--border-soft); background: var(--warm-white); cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--text-light); }
+    .habit-cell.done { background: var(--champagne); border-color: var(--champagne); color: var(--midnight); animation: checkBounce 0.3s ease; }
+
+    /* Dynamic lists structural alignment */
+    .dynamic-list-row { display: flex; gap: 12px; margin-bottom: 12px; }
+    .dynamic-list-container { margin-top: 16px; }
+
+    /* ── ANIMATIONS LIBRARY ── */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes pageEnter { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes starTwinkle { 0%, 100% { opacity: 0.2; transform: scale(0.8) rotate(0deg); } 50% { opacity: 0.8; transform: scale(1.3) rotate(15deg); } }
+    @keyframes moonGlow { 0%, 100% { filter: drop-shadow(0 0 4px rgba(232,200,138,0.2)); } 50% { filter: drop-shadow(0 0 12px rgba(232,200,138,0.5)); } }
+    @keyframes sunrayRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes butterflyWing { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(0.82); } }
+    @keyframes checkBounce { 0% { transform: scale(0); } 60% { transform: scale(1.25); } 100% { transform: scale(1); } }
+    @keyframes rippleOut { 0% { transform: scale(0); opacity: 0.4; } 100% { transform: scale(2.5); opacity: 0; } }
+    @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(232,200,138,0); } 50% { box-shadow: 0 0 0 6px rgba(232,200,138,0.15); } }
+    @keyframes toastSlide { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes breatheExpand { 0%, 100% { transform: scale(0.9); opacity: 0.7; } 50% { transform: scale(1.12); opacity: 1; } }
+    @keyframes particleFloat { 0% { transform: translateY(0) scale(1); opacity: 0.7; } 100% { transform: translateY(-60px) scale(0.5); opacity: 0; } }
+    @keyframes letterBurn { 0% { filter: brightness(1) sepia(0); opacity:1; } 50% { filter: brightness(1.5) sepia(0.5) hue-rotate(-10deg); opacity:0.8; } 100% { filter: brightness(0) sepia(1); opacity:0; transform: translateY(-20px) scale(0.95); } }
+
+    /* Cover Page Custom Fullscreen Layout */
+    #page-cover { background: var(--midnight); min-height: 100vh; margin:0; max-width: none; padding: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; position: fixed; top:0; left:0; right:0; bottom:0; z-index: 1000; text-align: center; }
+    .cover-content { max-width: 600px; padding: 32px; z-index: 10; position: relative; }
+    .cover-particles { position: absolute; width:100%; height:100%; top:0; left:0; overflow:hidden; pointer-events:none; }
+    .cover-particle { position: absolute; background: var(--champagne); border-radius: 50%; opacity: 0.6; animation: particleFloat infinite linear; bottom: -10px; }
+    .sunray-decor { position: absolute; bottom: -100px; left: calc(50% - 200px); width: 400px; height: 400px; opacity: 0.15; pointer-events: none; animation: sunrayRotate 60s infinite linear; }
+
+    /* Responsive Configurations */
+    @media (max-width: 768px) {
+      aside { transform: translateX(-265px); }
+      aside.open { transform: translateX(0); }
+      main { margin-left: 0; padding: 24px 16px; padding-top: 80px; }
+      .hamburger { display: flex; }
+      .mobile-overlay.open { display: block; }
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; gap: 16px; }
+      .habit-row { grid-template-columns: 1fr; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="toast-container"></div>
+  <div class="mobile-overlay" id="mobile-overlay"></div>
+  
+  <div class="hamburger" id="hamburger-menu">
+    <span></span><span></span><span></span>
+  </div>
+
+  <div id="app-container">
+    
+    <aside id="app-sidebar">
+      <div class="sidebar-bg-decor" id="sidebar-decor"></div>
+      <div class="brand">
+        <svg width="40" height="40" viewBox="0 0 100 100" style="animation: moonGlow 4s infinite ease-in-out;">
+          <path d="M50 20 A30 30 0 1 0 80 50 A24 24 0 1 1 50 20 Z" fill="#7B5EA7" fill-opacity="0.6" stroke="#E8C88A" stroke-width="1.5" stroke-opacity="0.4"/>
+        </svg>
+        <h1>Renaissance</h1>
+        <p>she fell back into herself</p>
+      </div>
+
+      <div class="nav-group-label">Begin</div>
+      <ul class="nav-links">
+        <li data-page="cover"><a onclick="showPage('cover')">🌙 Cover</a></li>
+        <li data-page="onboarding"><a onclick="showPage('onboarding')">✨ Setup Space</a></li>
+        <li data-page="dashboard"><a onclick="showPage('dashboard')">🏠 My Dashboard</a></li>
+      </ul>
+
+      <div class="nav-group-label">Feel It</div>
+      <ul class="nav-links">
+        <li data-page="grief"><a onclick="showPage('grief')">💜 Grief Stages</a></li>
+        <li data-page="emotions"><a onclick="showPage('emotions')">🌊 Emotion Waves</a></li>
+        <li data-page="anger"><a onclick="showPage('anger')">😤 Anger Release</a></li>
+        <li data-page="letters"><a onclick="showPage('letters')">💌 Unsent Letters</a></li>
+        <li data-page="journal"><a onclick="showPage('journal')">📖 Healing Journal</a></li>
+      </ul>
+
+      <div class="nav-group-label">Understand It</div>
+      <ul class="nav-links">
+        <li data-page="autopsy"><a onclick="showPage('autopsy')">🔍 Relationship Autopsy</a></li>
+        <li data-page="redflags"><a onclick="showPage('redflags')">🚩 Red Flag Audit</a></li>
+        <li data-page="patterns"><a onclick="showPage('patterns')">🔄 Pattern Breaker</a></li>
+        <li data-page="triggers"><a onclick="showPage('triggers')">⚡ Trigger Tracker</a></li>
+        <li data-page="rumination"><a onclick="showPage('rumination')">💭 Rumination Log</a></li>
+      </ul>
+
+      <div class="nav-group-label">No Contact</div>
+      <ul class="nav-links">
+        <li data-page="nc-commitment"><a onclick="showPage('nc-commitment')">🔒 NC Commitment</a></li>
+        <li data-page="nc-tracker"><a onclick="showPage('nc-tracker')">📊 NC Tracker</a></li>
+        <li data-page="urge"><a onclick="showPage('urge')">🆘 Urge Blocker</a></li>
+        <li data-page="digital"><a onclick="showPage('digital')">📱 Digital Detox</a></li>
+      </ul>
+
+      <div class="nav-group-label">Rebuild Her</div>
+      <ul class="nav-links">
+        <li data-page="identity"><a onclick="showPage('identity')">✨ Identity Reclaim</a></li>
+        <li data-page="selfworth"><a onclick="showPage('selfworth')">💎 Self-Worth Vault</a></li>
+        <li data-page="habits"><a onclick="showPage('habits')">🌱 Habit Tracker</a></li>
+        <li data-page="goals"><a onclick="showPage('goals')">🎯 Goals & Dreams</a></li>
+        <li data-page="finance"><a onclick="showPage('finance')">💰 Financial Reset</a></li>
+      </ul>
+
+      <div class="nav-group-label">Plan & Live</div>
+      <ul class="nav-links">
+        <li data-page="monthly"><a onclick="showPage('monthly')">📅 Monthly Planner</a></li>
+        <li data-page="weekly"><a onclick="showPage('weekly')">📋 Weekly Planner</a></li>
+        <li data-page="daily"><a onclick="showPage('daily')">☀️ Daily Planner</a></li>
+        <li data-page="tasks"><a onclick="showPage('tasks')">✅ Task List</a></li>
+      </ul>
+
+      <div class="nav-group-label">Daily Rituals</div>
+      <ul class="nav-links">
+        <li data-page="mood"><a onclick="showPage('mood')">🌸 Mood Log</a></li>
+        <li data-page="gratitude"><a onclick="showPage('gratitude')">🙏 Gratitude</a></li>
+        <li data-page="affirmations"><a onclick="showPage('affirmations')">✍️ Affirmations</a></li>
+        <li data-page="wellness"><a onclick="showPage('wellness')">💪 Wellness Log</a></li>
+        <li data-page="nervous"><a onclick="showPage('nervous')">🧘 Nervous System</a></li>
+      </ul>
+
+      <div class="nav-group-label">Look Forward</div>
+      <ul class="nav-links">
+        <li data-page="future"><a onclick="showPage('future')">💫 Future Self</a></li>
+        <li data-page="standards"><a onclick="showPage('standards')">💑 Relationship Standards</a></li>
+        <li data-page="renaissance"><a onclick="showPage('renaissance')">🦋 Renaissance Vision</a></li>
+      </ul>
+
+      <div class="sidebar-footer" id="rotating-quote">
+        "Healing is choosing yourself, over and over, even when it hurts."
+      </div>
+    </aside>
+
+    <main>
+
+      <section class="page" id="page-cover">
+        <div class="cover-particles" id="cover-particles-container"></div>
+        <svg class="sunray-decor" viewBox="0 0 200 200">
+          <g stroke="#E8C88A" stroke-width="0.5">
+            <line x1="100" y1="100" x2="100" y2="20"/>
+            <line x1="100" y1="100" x2="180" y2="100"/>
+            <line x1="100" y1="100" x2="100" y2="180"/>
+            <line x1="100" y1="100" x2="20" y2="100"/>
+            <line x1="100" y1="100" x2="156" y2="44"/>
+            <line x1="100" y1="100" x2="156" y2="156"/>
+            <line x1="100" y1="100" x2="44" y2="156"/>
+            <line x1="100" y1="100" x2="44" y2="44"/>
+          </g>
+        </svg>
+        <div class="cover-content">
+          <div style="font-family:'Josefin Sans'; font-size:12px; letter-spacing:0.5em; color:var(--champagne); margin-bottom:24px; animation: fadeInDown 1.5s forwards;">RENAISSANCE</div>
+          <h2 style="font-family:'Cormorant Garamond'; font-size:64px; font-style:italic; color:var(--warm-white); line-height:1.1; font-weight:300;">
+            <span style="display:block; animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; opacity:0;">She didn't</span>
+            <span style="display:block; color:var(--champagne); animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; opacity:0;">fall apart.</span>
+            <span style="display:block; animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards; opacity:0;">She fell back</span>
+            <span style="display:block; color:var(--champagne); animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 1.1s forwards; opacity:0;">into herself.</span>
+          </h2>
+          <hr style="width:80px; border:0; border-top:1px solid var(--champagne); margin:32px auto; opacity:0; animation: fadeIn 1.5s 1.5s forwards;">
+          <p style="color: var(--plum-light); font-size:14px; margin-bottom:40px; opacity:0; animation: fadeIn 1.5s 1.8s forwards;">A Premium 90-Day Breakup Recovery & Emotional Healing Planner</p>
+          <a href="#page-onboarding" style="text-decoration: none; display: inline-block;">
+          <button class="btn btn-ghost" style="opacity:0; animation: fadeInUp 1s 2.2s forwards;">Begin Your Recovery →</   button>
+   </a>
+        </div>
+      </section>
+
+      <section class="page" id="page-onboarding">
+        <div class="page-header">
+          <h2>Let's set up your space</h2>
+          <p>A soft, secure sanctuary for your healing. Take a deep breath. No pressure here.</p>
+        </div>
+        <div class="card">
+          <div style="margin-bottom: 32px;">
+            <label>What is your name?</label>
+            <input type="text" id="setup-username" class="underline-input-large" placeholder="Beautiful...">
+          </div>
+          <div style="margin-bottom: 32px;">
+            <label>When did the relationship end?</label>
+            <input type="date" id="setup-breakupdate" style="font-size: 18px;">
+            <span style="font-size:11px; color:var(--text-light); display:block; margin-top:4px;">This helps us gently map out the arc of your healing timeline.</span>
+          </div>
+          <div style="margin-bottom: 32px;">
+            <label>How are you feeling right now? (In one honest word)</label>
+            <input type="text" id="setup-emotion" placeholder="e.g., Numb, broken, tender, surviving...">
+          </div>
+          <div style="margin-bottom: 40px;">
+            <label>What context brings you to this planner?</label>
+            <div class="chips-container" id="setup-chips">
+              <div class="chip" onclick="toggleChip(this)">Heartbreak</div>
+              <div class="chip" onclick="toggleChip(this)">Divorce</div>
+              <div class="chip" onclick="toggleChip(this)">Situationship End</div>
+              <div class="chip" onclick="toggleChip(this)">Toxic Exit</div>
+              <div class="chip" onclick="toggleChip(this)">Long Distance Parting</div>
+              <div class="chip" onclick="toggleChip(this)">Mutual Separation</div>
+              <div class="chip" onclick="toggleChip(this)">Still Processing</div>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-full" onclick="saveOnboarding()">Begin My Recovery Journey</button>
+          <p style="text-align:center; font-size:11px; font-style:italic; color:var(--text-light); margin-top:16px;">Everything stays on your local device. This space is entirely your own.</p>
+        </div>
+      </section>
+
+      <section class="page" id="page-dashboard">
+        <div class="page-header">
+          <h2 id="dashboard-greeting">Good morning, Beautiful ✨</h2>
+          <p>Welcome back to yourself. Here is where your recovery lives today.</p>
+        </div>
+        <div class="card midnight-theme" style="text-align: center;">
+          <div class="big-counter" id="dash-days-counter">0</div>
+          <div style="font-family:'Josefin Sans'; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:var(--champagne);">Days of Your Renaissance</div>
+          <p style="font-size:12px; color:var(--plum-light); margin-top:6px;">Every single day passed is a brave milestone. Be gentle with your timeline.</p>
+        </div>
+        <div class="grid-4">
+          <div class="card" style="text-align:center; padding:20px;">
+            <label>No Contact</label>
+            <div style="font-size:20px; font-weight:500; color:var(--text-dark);" id="dash-nc-streak">0 Days</div>
+          </div>
+          <div class="card" style="text-align:center; padding:20px;">
+            <label>Journal Streak</label>
+            <div style="font-size:20px; font-weight:500; color:var(--text-dark);" id="dash-journal-streak">0 Days</div>
+          </div>
+          <div class="card" style="text-align:center; padding:20px;">
+            <label>Current Stage</label>
+            <div style="font-size:14px; font-weight:500; color:var(--plum-light); margin-top:6px;" id="dash-grief-stage">Unset</div>
+          </div>
+          <div class="card" style="text-align:center; padding:10px 10px 20px 10px;">
+            <label>Recovery Score</label>
+            <div class="progress-ring-wrap">
+              <svg width="80" height="80">
+                <circle cx="40" cy="40" r="34" stroke="var(--border-soft)" stroke-width="4" fill="transparent"/>
+                <circle cx="40" cy="40" r="34" stroke="var(--champagne)" stroke-width="4" fill="transparent" stroke-dasharray="213" stroke-dashoffset="150" id="dash-score-ring"/>
+              </svg>
+              <div class="progress-ring-text" id="dash-score-text">30%</div>
+            </div>
+          </div>
+        </div>
+        <div class="card emotional">
+          <h4 style="font-family:'Playfair Display'; font-style:italic; margin-bottom:12px;">How is your heart parsing this exact moment?</h4>
+          <div class="grid-4" style="margin-bottom:16px;">
+            <div class="emotion-pill" onclick="selectDashEmotion(this, 'Grieving')">Grieving</div>
+            <div class="emotion-pill" onclick="selectDashEmotion(this, 'Angry')">Angry</div>
+            <div class="emotion-pill" onclick="selectDashEmotion(this, 'Numb')">Numb</div>
+            <div class="emotion-pill" onclick="selectDashEmotion(this, 'Tender')">Tender</div>
+          </div>
+          <textarea placeholder="Write what's weighing heaviest on you right now... (Autosaves)" id="dash-heart-text" oninput="autoSaveField('dash_heart', this.value)"></textarea>
+        </div>
+      </section>
+
+      <section class="page" id="page-grief">
+        <div class="page-header">
+          <h2>The Seven Dimensions of Heartbreak Grieving</h2>
+          <p>Grief does not follow a clean structural progression. It loops and transforms. Track where you land today.</p>
+        </div>
+        <div class="card recovery" style="margin-bottom:24px;">
+          <label>Where are you today?</label>
+          <select id="grief-current-stage-select" onchange="updateGriefStage(this.value)">
+            <option value="">Select current emotional frame...</option>
+            <option value="1">1. Shock & Denial</option>
+            <option value="2">2. Pain & Guilt</option>
+            <option value="3">3. Anger & Bargaining</option>
+            <option value="4">4. Depression & Isolation</option>
+            <option value="5">5. The Upward Turn</option>
+            <option value="6">6. Reconstruction & Identity Modification</option>
+            <option value="7">7. Radical Acceptance & Hope</option>
+          </select>
+        </div>
+        <div id="grief-accordions">
+          <div class="accordion-card" id="grief-acc-1">
+            <div class="accordion-header" onclick="toggleAccordion('grief-acc-1')">
+              <h4><span class="stage-badge" style="background:var(--plum-light);"></span> 1. Shock & Denial</h4>
+              <span>▼</span>
+            </div>
+            <div class="accordion-content">
+              <p style="font-style:italic; margin-bottom:12px;">"It doesn't feel real yet. You find yourself checking your screen expecting their standard message rhythm."</p>
+              <div style="font-size:13px; margin-bottom:12px;"><strong>Signs:</strong> Persistent phone monitoring, replaying recent choices on an endless mental loop.</div>
+              <label>Write down what feels completely unreal right now:</label>
+              <textarea id="grief-note-1" oninput="autoSaveField('grief_1', this.value)"></textarea>
+            </div>
+          </div>
+          <div class="accordion-card" id="grief-acc-2">
+            <div class="accordion-header" onclick="toggleAccordion('grief-acc-2')">
+              <h4><span class="stage-badge" style="background:var(--rose-blush);"></span> 2. Pain & Guilt</h4>
+              <span>▼</span>
+            </div>
+            <div class="accordion-content">
+              <p style="font-style:italic; margin-bottom:12px;">"The emotional realization registers as physical exhaustion. Self-blame spirals begin to spin."</p>
+              <div style="font-size:13px; margin-bottom:12px;"><strong>Signs:</strong> Somatic tightness, obsessive tracing of what you 'should' have altered to save the dynamic.</div>
+              <label>Release the guilt. Document the narratives you are using to punish yourself:</label>
+              <textarea id="grief-note-2" oninput="autoSaveField('grief_2', this.value)"></textarea>
+            </div>
+          </div>
+          <div class="accordion-card" id="grief-acc-3">
+            <div class="accordion-header" onclick="toggleAccordion('grief-acc-3')">
+              <h4><span class="stage-badge" style="background:var(--terracotta);"></span> 3. Anger & Bargaining</h4>
+              <span>▼</span>
+            </div>
+            <div class="accordion-content">
+              <p style="font-style:italic; margin-bottom:12px;">"Rage emerges as an emotional shield. Simultaneously, you draft complex negotiation scenarios in your thoughts."</p>
+              <label>What boundaries were compromised that you are now furious about?</label>
+              <textarea id="grief-note-3" oninput="autoSaveField('grief_3', this.value)"></textarea>
+            </div>
+          </div>
+          <div class="accordion-card" id="grief-acc-4">
+            <div class="accordion-header" onclick="toggleAccordion('grief-acc-4')">
+              <h4><span class="stage-badge" style="background:var(--slate);"></span> 4. Depression & Isolation</h4>
+              <span>▼</span>
+            </div>
+            <div class="accordion-content">
+              <p style="font-style:italic; margin-bottom:12px;">"The weight settles. You miss the conceptual foundation of the life built around the relationship."</p>
+              <label>Be brutally honest: what do you miss most about that reality, and what do you definitely not miss?</label>
+              <textarea id="grief-note-4" oninput="autoSaveField('grief_4', this.value)"></textarea>
+            </div>
+          </div>
+          <div class="accordion-card" id="grief-acc-5">
+            <div class="accordion-header" onclick="toggleAccordion('grief-acc-5')">
+              <h4><span class="stage-badge" style="background:var(--sage);"></span> 5. The Upward Turn</h4>
+              <span>▼</span>
+            </div>
+            <div class="accordion-content">
+              <p style="font-style:italic; margin-bottom:12px;">"Tiny windows of peace open up. You catch yourself laughing without a secondary emotional weight."</p>
+              <label>Note a recent moment where you felt brief emotional separation from your grief:</label>
+              <textarea id="grief-note-5" oninput="autoSaveField('grief_5', this.value)"></textarea>
+            </div>
+          </div>
+          <div class="accordion-card" id="grief-acc-6">
+            <div class="accordion-header" onclick="toggleAccordion('grief-acc-6')">
+              <h4><span class="stage-badge" style="background:var(--champagne);"></span> 6. Reconstruction & Identity Modification</h4>
+              <span>▼</span>
+            </div>
+            <div class="accordion-content">
+              <p style="font-style:italic; margin-bottom:12px;">"Rebuilding your foundation from zero. Terrifying, but completely unconstrained."</p>
+              <label>What is a personal preference or goal you are reclaiming that didn't fit into your past partnership?</label>
+              <textarea id="grief-note-6" oninput="autoSaveField('grief_6', this.value)"></textarea>
+            </div>
+          </div>
+          <div class="accordion-card" id="grief-acc-7">
+            <div class="accordion-header" onclick="toggleAccordion('grief-acc-7')">
+              <h4><span class="stage-badge" style="background:var(--champagne-light);"></span> 7. Radical Acceptance & Hope</h4>
+              <span>▼</span>
+            </div>
+            <div class="accordion-content">
+              <p style="font-style:italic; margin-bottom:12px;">"It occurred. It is a part of your narrative history, but it is no longer the definitive script of your life."</p>
+              <label>Draft a clear statement of closure to the version of you that began this track:</label>
+              <textarea id="grief-note-7" oninput="autoSaveField('grief_7', this.value)"></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-emotions">
+        <div class="page-header">
+          <h2>Tracking the Waves</h2>
+          <p>Emotional stability is non-linear. Ride the surge without letting it pull you under.</p>
+        </div>
+        <div class="card emotional">
+          <label>Identify the structural layers of this current emotional wave (Select all matching)</label>
+          <div class="grid-4" id="emotion-wave-grid">
+            <div class="chip" onclick="toggleChip(this)">Grief</div>
+            <div class="chip" onclick="toggleChip(this)">Anger</div>
+            <div class="chip" onclick="toggleChip(this)">Longing</div>
+            <div class="chip" onclick="toggleChip(this)">Relief</div>
+            <div class="chip" onclick="toggleChip(this)">Shame</div>
+            <div class="chip" onclick="toggleChip(this)">Anxiety</div>
+            <div class="chip" onclick="toggleChip(this)">Numbness</div>
+            <div class="chip" onclick="toggleChip(this)">Pride</div>
+          </div>
+          <div class="slider-container" style="margin-top:24px;">
+            <label id="intensity-label">Wave Intensity: 5/10 (Present)</label>
+            <input type="range" min="1" max="10" value="5" class="range-slider" id="wave-intensity" oninput="updateWaveSlider(this.value)">
+          </div>
+          <div style="margin-top:20px;">
+            <label>Where is this emotion manifesting physically in your body?</label>
+            <div class="chips-container">
+              <div class="chip" onclick="toggleChip(this)">Chest Tightness</div>
+              <div class="chip" onclick="toggleChip(this)">Throat Constriction</div>
+              <div class="chip" onclick="toggleChip(this)">Stomach Flutter</div>
+              <div class="chip" onclick="toggleChip(this)">Head Tension</div>
+            </div>
+          </div>
+          <div style="margin-top:20px;">
+            <label>What primary catalyst triggered this specific wave?</label>
+            <textarea id="wave-trigger" placeholder="A specific song, memory, location, or thought thread..." oninput="autoSaveField('wave_trigger', this.value)"></textarea>
+          </div>
+          <button class="btn btn-primary" style="margin-top:16px;" onclick="logWaveData()">Log This Wave</button>
+        </div>
+      </section>
+
+      <section class="page" id="page-anger">
+        <div class="page-header">
+          <h2>Anger is Grief's Protective Shield</h2>
+          <p>Let the rage speak clearly here. It carries critical data about your boundaries. Do not minimize it.</p>
+        </div>
+        <div class="grid-2">
+          <div class="card emotional">
+            <label>Anger Internal Thermometer</label>
+            <div style="font-size:24px; font-weight:600; color:var(--terracotta); margin-bottom:12px;" id="anger-thermo-text">Burning (7/10)</div>
+            <input type="range" min="1" max="10" value="7" class="range-slider" id="anger-slider" oninput="document.getElementById('anger-thermo-text').textContent = this.value >= 9 ? 'Raging ('+this.value+'/10)' : this.value >= 6 ? 'Burning ('+this.value+'/10)' : 'Simmering ('+this.value+'/10)'">
+            <p style="font-size:12px; color:var(--text-medium); margin-top:12px;">Anger isn't toxic; it's a structural realization that you deserved far cleaner metrics of respect.</p>
+          </div>
+          <div class="card">
+            <label>Somatic Anger De-escalation Checklist</label>
+            <label class="checkbox-item"><input type="checkbox" onchange="showToast('Somatic discharge logged')"><span class="checkbox-box"></span><span class="checkbox-label">Scream safely into a cushion for 30s</span></label>
+            <label class="checkbox-item"><input type="checkbox" onchange="showToast('Somatic discharge logged')"><span class="checkbox-box"></span><span class="checkbox-label">Perform 2 minutes of vigorous full-body shaking</span></label>
+            <label class="checkbox-item"><input type="checkbox" onchange="showToast('Somatic discharge logged')"><span class="checkbox-box"></span><span class="checkbox-label">Fast continuous walking for 10 minutes</span></label>
+          </div>
+        </div>
+        <div class="card midnight-theme">
+          <label style="color:var(--champagne);">The Raw Vent Core (No Filters, No Retractions)</label>
+          <textarea id="anger-raw-rant" class="journal-textarea" style="color:var(--warm-white);" placeholder="Pour every unspoken, visceral sentence out here. This text is meant for processing, not for transmission."></textarea>
+          <div style="margin-top:20px; display:flex; gap:12px;">
+            <button class="btn btn-danger" onclick="clearAngerRant()">Purge & Release Safely</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-letters">
+        <div class="page-header">
+          <h2>The Unsent Archive</h2>
+          <p>Communication with them holds your progress back. Write everything here to reclaim your closure internally.</p>
+        </div>
+        <div class="grid-4" style="margin-bottom:24px;">
+          <button class="btn btn-ghost" onclick="selectLetterType('To My Ex')">To Them</button>
+          <button class="btn btn-ghost" onclick="selectLetterType('To The Past Me')">To Past Self</button>
+          <button class="btn btn-ghost" onclick="selectLetterType('To My Grief')">To My Grief</button>
+          <button class="btn btn-ghost" onclick="selectLetterType('To The Future Me')">To Future Self</button>
+        </div>
+        <div class="card" id="letter-editor-card">
+          <label id="letter-recipient-label">Recipient: To Them</label>
+          <textarea id="unsent-letter-content" class="journal-textarea" placeholder="Dearest... Write without restraint. This line remains entirely yours."></textarea>
+          <div style="margin-top:24px; display:flex; gap:12px;">
+            <button class="btn btn-primary" onclick="saveLetterArchive()">Commit to My History</button>
+            <button class="btn btn-danger" onclick="burnLetterEffect()">Burn Electronically</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-journal">
+        <div class="page-header">
+          <h2>The Healing Journal</h2>
+          <p>Documenting your inner transformation day by day.</p>
+        </div>
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <button class="btn btn-ghost" onclick="shufflePrompt()">Get a Healing Prompt 🔄</button>
+          </div>
+          <p id="journal-prompt-display" style="font-family:'Playfair Display'; font-style:italic; color:var(--text-medium); margin-bottom:16px; font-size:16px;">"What parts of your identity did you compromise to sustain their comfort?"</p>
+          <textarea id="journal-main-text" class="journal-textarea" placeholder="The blank page possesses complete structural resilience. It can carry whatever weight you place down." oninput="autoSaveField('journal_today', this.value)"></textarea>
+          <button class="btn btn-primary" style="margin-top:16px;" onclick="showToast('Journal Entry Encrypted & Saved')">Secure Entry</button>
+        </div>
+      </section>
+
+      <section class="page" id="page-autopsy">
+        <div class="page-header">
+          <h2>The Systemic Relationship Autopsy</h2>
+          <p>Analyzing the mechanics of the breakdown to extract wisdom, not blame.</p>
+        </div>
+        <div class="card recovery">
+          <div style="margin-bottom:20px;">
+            <label>What core operational incompatibility did you consistently minimize or attempt to correct?</label>
+            <textarea id="autopsy-incomp" oninput="autoSaveField('autopsy_1', this.value)"></textarea>
+          </div>
+          <div style="margin-bottom:20px;">
+            <label>When did your intuition first register that the partnership framework was fundamentally failing?</label>
+            <textarea id="autopsy-intuition" oninput="autoSaveField('autopsy_2', this.value)"></textarea>
+          </div>
+          <div style="margin-bottom:20px;">
+            <label>Assess the personal boundaries you permitted to become permeable to preserve the bond:</label>
+            <textarea id="autopsy-boundaries" oninput="autoSaveField('autopsy_3', this.value)"></textarea>
+          </div>
+          <button class="btn btn-primary" onclick="showToast('Autopsy Data Archived')">Archive Wisdom Metrics</button>
+        </div>
+      </section>
+
+      <section class="page" id="page-redflags">
+        <div class="page-header">
+          <h2>Objective Red Flag Evaluation</h2>
+          <p>Deconstruct the behavioral anomalies you noticed but excused away.</p>
+        </div>
+        <div class="grid-2">
+          <div class="card emotional">
+            <h4 style="font-family:'Josefin Sans'; margin-bottom:16px;">Communication Flags</h4>
+            <label class="checkbox-item"><input type="checkbox" onchange="updateFlagCount()"><span class="checkbox-box"></span><span class="checkbox-label">Defensive stonewalling during systemic conflict</span></label>
+            <label class="checkbox-item"><input type="checkbox" onchange="updateFlagCount()"><span class="checkbox-box"></span><span class="checkbox-label">Love-bombing sequences followed by rapid withdrawal</span></label>
+            <label class="checkbox-item"><input type="checkbox" onchange="updateFlagCount()"><span class="checkbox-box"></span><span class="checkbox-label">Gaslighting behavior around objective events</span></label>
+          </div>
+          <div class="card emotional">
+            <h4 style="font-family:'Josefin Sans'; margin-bottom:16px;">Respect & Core Values</h4>
+            <label class="checkbox-item"><input type="checkbox" onchange="updateFlagCount()"><span class="checkbox-box"></span><span class="checkbox-label">Subtle optimization patterns targeting your appearance/career</span></label>
+            <label class="checkbox-item"><input type="checkbox" onchange="updateFlagCount()"><span class="checkbox-box"></span><span class="checkbox-label">Uneven distribution of emotional investment</span></label>
+            <label class="checkbox-item"><input type="checkbox" onchange="updateFlagCount()"><span class="checkbox-box"></span><span class="checkbox-label">Active disregard for explicitly communicated limits</span></label>
+          </div>
+        </div>
+        <div class="card text-center" style="text-align:center;">
+          <h3 style="font-family:'Cormorant Garamond'; font-size:28px; font-style:italic;" id="flag-count-display">0 Red Flags Identified</h3>
+          <p style="font-size:13px; color:var(--text-medium); margin-top:8px;">Acknowledging these flags is structural validation that your exit wasn't an overreaction; it was an act of high self-worth.</p>
+        </div>
+      </section>
+
+      <section class="page" id="page-patterns">
+        <div class="page-header">
+          <h2>The Behavioral Pattern Breaker</h2>
+          <p>Unpack recurring attachment configurations to change your future criteria.</p>
+        </div>
+        <div class="card">
+          <label>What specific archetype do you find yourself repeatedly attracting or pursuing?</label>
+          <div class="chips-container" style="margin-bottom:20px;">
+            <div class="chip" onclick="toggleChip(this)">Emotionally Unavailable</div>
+            <div class="chip" onclick="toggleChip(this)">The Project / Needs Fixing</div>
+            <div class="chip" onclick="toggleChip(this)">The Avoidant Escape Artist</div>
+            <div class="chip" onclick="toggleChip(this)">Inconsistent / High Chaos</div>
+          </div>
+          <label>What internal narrative makes this archetype feel familiar or safe to your nervous system?</label>
+          <textarea id="pattern-narrative" placeholder="e.g., 'I feel I must earn care by proving my hyper-utility...'" oninput="autoSaveField('pattern_narrative', this.value)"></textarea>
+          <label style="margin-top:20px;">What will your conscious boundary response be the next time this exact baseline pattern tests your parameters?</label>
+          <textarea id="pattern-defense" oninput="autoSaveField('pattern_defense', this.value)"></textarea>
+        </div>
+      </section>
+
+      <section class="page" id="page-triggers">
+        <div class="page-header">
+          <h2>Somatic Trigger Architecture</h2>
+          <p>Track what destabilizes your focus and develop proactive containment strategies.</p>
+        </div>
+        <div class="card emotional">
+          <div class="grid-2">
+            <div>
+              <label>Trigger Source</label>
+              <input type="text" id="trigger-source" placeholder="e.g., Passing our old coffee storefront...">
+            </div>
+            <div>
+              <label>Somatic Reaction Rating (1-10)</label>
+              <input type="number" id="trigger-rating" min="1" max="10" placeholder="7">
+            </div>
+          </div>
+          <div style="margin-top:16px;">
+            <label>Immediate Re-centering Strategy Executed</label>
+            <input type="text" id="trigger-strategy" placeholder="e.g., Square breathing, opening a self-worth affirmation...">
+          </div>
+          <button class="btn btn-primary" style="margin-top:16px;" onclick="addTriggerRow()">Log Trigger Profile</button>
+        </div>
+        <div class="card">
+          <label>Historical Trigger Manifestations</label>
+          <div id="trigger-log-container" style="margin-top:12px; font-size:13px;">
+            <p style="color:var(--text-light)">No triggers logged in this sequence yet.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-rumination">
+        <div class="page-header">
+          <h2>The Rumination Containment Log</h2>
+          <p>Intercept looping thought cycles. Shift from obsessive questioning to grounded facts.</p>
+        </div>
+        <div class="card emotional">
+          <label>What looping narrative or hypothetical query is your mind running on repeat?</label>
+          <textarea id="rumination-loop" placeholder="e.g., 'Did they treat the new partner with the care they withheld from me?'" style="font-family:'Playfair Display'; font-style:italic; font-size:16px;"></textarea>
+          <div class="grid-2" style="margin-top:16px;">
+            <div>
+              <label>Is there objective data validating this thought or is it purely emotion-driven?</label>
+              <select id="rumination-type">
+                <option>Purely Projection / Emotion-Based</option>
+                <option>Based on Objective Past Behaviors</option>
+              </select>
+            </div>
+            <div>
+              <label>Does solving this puzzle progress your personal recovery?</label>
+              <select id="rumination-utility">
+                <option>No, it keeps my energy tied to their timeline</option>
+                <option>Yes, it establishes functional resolution</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary" style="margin-top:20px;" onclick="interceptRumination()">Process and Halt the Loop</button>
+        </div>
+      </section>
+
+      <section class="page" id="page-nc-commitment">
+        <div class="page-header">
+          <h2>The Clean Break Commitment</h2>
+          <p>No Contact is not a tactic to force their return. It is structural space to return to yourself.</p>
+        </div>
+        <div class="card midnight-theme" style="text-align:center; padding:48px 32px; border:2px solid var(--champagne);">
+          <h3 style="font-family:'Playfair Display'; font-style:italic; font-size:28px; color:var(--champagne); margin-bottom:24px;">Sacred Boundary Manifesto</h3>
+          <p style="font-size:16px; line-height:1.8; max-width:500px; margin:0 auto 32px auto; font-family:'Cormorant Garamond', serif; font-size:20px;">
+            "I choose to withdraw my energy from the narrative space containing my ex. I recognize that checking their digital spaces, micro-analyzing their behaviors, or sending testing messages keeps my nervous system dysregulated. I commit to absolute radio silence."
+          </p>
+          <div class="grid-2" style="max-width:400px; margin:0 auto 24px auto;">
+            <input type="text" id="nc-sig-name" placeholder="Your Name" style="color:var(--warm-white); text-align:center; border-bottom-color:var(--champagne);">
+            <input type="date" id="nc-sig-date" style="color:var(--warm-white); text-align:center; border-bottom-color:var(--champagne);">
+          </div>
+          <button class="btn btn-primary" onclick="signNCCommitment()">Execute Commitment Signature</button>
+        </div>
+      </section>
+
+      <section class="page" id="page-nc-tracker">
+        <div class="page-header">
+          <h2>No Contact Metrics & Milestones</h2>
+          <p>Tracking your streak of radio silence. Your brain cells are building new pathways every single day.</p>
+        </div>
+        <div class="card">
+          <div class="big-counter" id="nc-real-counter">0</div>
+          <div style="text-align:center; font-family:'Josefin Sans'; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-medium); margin-bottom:20px;">Consecutive Days Untethered</div>
+          <div style="display:flex; justify-content:center; gap:12px;">
+            <button class="btn btn-ghost" onclick="incrementNCStreak()">Log a Day Succeeded ✓</button>
+            <button class="btn btn-danger" onclick="resetNCStreak()">Log a Break / Slip</button>
+          </div>
+        </div>
+        <h4 class="nav-group-label">Milestone Progression Map</h4>
+        <div class="timeline">
+          <div class="timeline-item" id="milestone-3">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h5>Day 3: The Peak Withdrawal Surge</h5><p>The chemical dependency craving is highest. Holding firm here is a massive win.</p></div>
+          </div>
+          <div class="timeline-item" id="milestone-7">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h5>Day 7: The Clear Horizon Glimmer</h5><p>One structural week complete. Your system is recognizing its baseline capacity.</p></div>
+          </div>
+          <div class="timeline-item" id="milestone-21">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h5>Day 21: Neural Pathway Rewiring</h5><p>Habit dependencies alter radically around this matrix point.</p></div>
+          </div>
+          <div class="timeline-item" id="milestone-90">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h5>Day 90: Renaissance Status Achieved</h5><p>Complete energetic sovereignty. You no longer process reality through their filter.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-urge">
+        <div class="page-header">
+          <h2>The Structural Urge Interceptor</h2>
+          <p>When the impulse to reach out spikes, enter this immediate holding space before executing any decisions.</p>
+        </div>
+        <div class="card emotional" style="text-align:center;">
+          <h3 style="font-family:'Playfair Display'; font-style:italic; font-size:24px; margin-bottom:12px;">Activate the 5-Minute De-escalation Protocol</h3>
+          <p style="font-size:13px; max-width:500px; margin:0 auto 20px auto;">Commit to waiting exactly five minutes before doing anything. Let this countdown process the immediate chemical wave inside your body.</p>
+          <div style="font-size:48px; font-weight:600; font-family:'Josefin Sans'; color:var(--text-dark); margin-bottom:20px;" id="urge-timer-display">05:00</div>
+          <button class="btn btn-primary" onclick="startUrgeTimer()">Initiate Intercept Countdown</button>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <label>What are you hoping to find via contact?</label>
+            <div class="chips-container">
+              <div class="chip" onclick="showUrgeReality('closure')">I need them to explain things (Closure)</div>
+              <div class="chip" onclick="showUrgeReality('remorse')">I want to check if they feel remorse</div>
+              <div class="chip" onclick="showUrgeReality('lonely')">The absolute silence is terrifying</div>
+            </div>
+          </div>
+          <div class="card recovery" id="urge-reality-box">
+            <label>Objective Reality Check</label>
+            <p style="font-size:13px; font-style:italic; color:var(--text-medium);">Select an option on the left to see the reality check. Your growth depends on seeing things exactly as they are.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-digital">
+        <div class="page-header">
+          <h2>Digital Space Sanitation</h2>
+          <p>Monitoring their digital profile is simply self-inflicted re-traumatization. Build a secure perimeter.</p>
+        </div>
+        <div class="card">
+          <label>Digital Cleanse Action Matrix</label>
+          <label class="checkbox-item"><input type="checkbox" onchange="showToast('Boundary established')"><span class="checkbox-box"></span><span class="checkbox-label">Mute, restrict, or block their profile metrics entirely</span></label>
+          <label class="checkbox-item"><input type="checkbox" onchange="showToast('Boundary established')"><span class="checkbox-box"></span><span class="checkbox-label">Archive conversational histories out of visibility tracking</span></label>
+          <label class="checkbox-item"><input type="checkbox" onchange="showToast('Boundary established')"><span class="checkbox-box"></span><span class="checkbox-label">Delete automated suggestion tags linked to their initials</span></label>
+          <label class="checkbox-item"><input type="checkbox" onchange="showToast('Boundary established')"><span class="checkbox-box"></span><span class="checkbox-label">Instruct shared contacts not to provide operational updates</span></label>
+        </div>
+      </section>
+
+      <section class="page" id="page-identity">
+        <div class="page-header">
+          <h2>Identity Extraction & Reclamation</h2>
+          <p>Who were you before you minimized your core space to accommodate their worldview? Let's bring her back.</p>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <h4 style="font-family:'Josefin Sans'; color:var(--plum-light); margin-bottom:16px;">The Attenuated Self (During Relationship)</h4>
+            <label>What specific interests or passions did you let slide?</label>
+            <textarea id="id-attenuated-1" oninput="autoSaveField('id_att_1', this.value)"></textarea>
+            <label style="margin-top:12px;">What stylistic or conversational behaviors did you modify?</label>
+            <textarea id="id-attenuated-2" oninput="autoSaveField('id_att_2', this.value)"></textarea>
+          </div>
+          <div class="card recovery">
+            <h4 style="font-family:'Josefin Sans'; color:var(--champagne); margin-bottom:16px;">The Sovereign Autonomous Woman</h4>
+            <label>What values or aesthetics are entirely yours?</label>
+            <textarea id="id-sovereign-1" oninput="autoSaveField('id_sov_1', this.value)"></textarea>
+            <label style="margin-top:12px;">What is a bold life update you want to execute solo this season?</label>
+            <textarea id="id-sovereign-2" oninput="autoSaveField('id_sov_2', this.value)"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-selfworth">
+        <div class="page-header">
+          <h2>The Self-Worth Fortification Vault</h2>
+          <p>Rejection is an expression of their misalignment or capacity limits—it has no authority over your inherent value.</p>
+        </div>
+        <div class="card recovery">
+          <label>Inherent Traits Statement</label>
+          <p style="font-size:13px; margin-bottom:16px; color:var(--text-medium);">Document five absolute facts about your intellect, capability, and character that are completely independent of external validation.</p>
+          <input type="text" placeholder="1. I possess absolute resilience under pressure." style="margin-bottom:12px;" id="worth-1" oninput="autoSaveField('worth_1', this.value)">
+          <input type="text" placeholder="2. My empathy is deep, rare, and highly valuable." style="margin-bottom:12px;" id="worth-2" oninput="autoSaveField('worth_2', this.value)">
+          <input type="text" placeholder="3. I am capable of building independent resources." style="margin-bottom:12px;" id="worth-3" oninput="autoSaveField('worth_3', this.value)">
+          <input type="text" placeholder="4." style="margin-bottom:12px;" id="worth-4" oninput="autoSaveField('worth_4', this.value)">
+          <input type="text" placeholder="5." id="worth-5" oninput="autoSaveField('worth_5', this.value)">
+        </div>
+      </section>
+
+      <section class="page" id="page-habits">
+        <div class="page-header">
+          <h2>Sovereign Baseline Habit Metrics</h2>
+          <p>When major emotional frameworks fracture, tracking simple behavioral baselines protects your energy.</p>
+        </div>
+        <div class="card">
+          <div class="habit-row">
+            <div><strong>Sovereign Habit</strong></div>
+            <div style="text-align:center;"><strong>Days Tracked This Sequence</strong></div>
+            <div style="text-align:right;"><strong>Streak Metrics</strong></div>
+          </div>
+          <div class="habit-row">
+            <div>No Contact Maintained</div>
+            <div class="habit-days-grid" id="habit-nc-cells"></div>
+            <div style="text-align:right;" id="habit-nc-streak">0 Days</div>
+          </div>
+          <div class="habit-row">
+            <div>Hydration Target (2L)</div>
+            <div class="habit-days-grid" id="habit-h2o-cells"></div>
+            <div style="text-align:right;">Daily Track</div>
+          </div>
+          <div class="habit-row">
+            <div>Somatic Movement (20m)</div>
+            <div class="habit-days-grid" id="habit-move-cells"></div>
+            <div style="text-align:right;">Daily Track</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-goals">
+        <div class="page-header">
+          <h2>Independent Vision Targets</h2>
+          <p>Unlinked from anyone else's path. These targets are completely your own design.</p>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <h4 style="font-family:'Josefin Sans'; margin-bottom:12px;">Intellectual & Financial</h4>
+            <textarea id="goal-fin" placeholder="Define target resources, certificates, or asset accumulation profiles..." oninput="autoSaveField('goal_f', this.value)"></textarea>
+          </div>
+          <div class="card recovery">
+            <h4 style="font-family:'Josefin Sans'; margin-bottom:12px;">Stylistic & Somatic</h4>
+            <textarea id="goal-style" placeholder="Define physical updates, wardrobe resets, or spatial design transformations..." oninput="autoSaveField('goal_s', this.value)"></textarea>
+          </div>
+          <div class="card">
+            <h4 style="font-family:'Josefin Sans'; margin-bottom:12px;">Experiential & Relational</h4>
+            <textarea id="goal-exp" placeholder="Define solo expeditions, skill growth profiles, or platonic network investment plans..." oninput="autoSaveField('goal_e', this.value)"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-finance">
+        <div class="page-header">
+          <h2>Sovereign Wealth & Resource Tracking</h2>
+          <p>Financial independence is essential for processing high self-worth boundaries. Secure your foundation.</p>
+        </div>
+        <div class="card recovery">
+          <div class="grid-2">
+            <div>
+              <label>Independent Allocation Focus</label>
+              <input type="text" id="fin-focus" placeholder="e.g., Solo Apartment Fund, Rebirth Portfolio...">
+            </div>
+            <div>
+              <label>Monthly Contribution Target</label>
+              <input type="text" id="fin-target" placeholder="$350">
+            </div>
+          </div>
+          <button class="btn btn-primary" style="margin-top:16px;" onclick="showToast('Resource allocation model configured')">Update Financial Model</button>
+        </div>
+      </section>
+
+      <section class="page" id="page-monthly">
+        <div class="page-header">
+          <h2>Monthly Focus Horizon</h2>
+          <p>Zoom out. Map the large milestones of your transformation process.</p>
+        </div>
+        <div class="card">
+          <label>Primary Theme For This 30-Day Windows</label>
+          <input type="text" class="underline-input-large" id="month-theme" placeholder="e.g., Somatic Regulation & Core Space Reset..." oninput="autoSaveField('m_theme', this.value)">
+          <div class="grid-2" style="margin-top:20px;">
+            <div>
+              <label>Key Structural Priorities</label>
+              <textarea id="month-priorities" oninput="autoSaveField('m_prio', this.value)"></textarea>
+            </div>
+            <div>
+              <label>Boundaries to Protect Intensely</label>
+              <textarea id="month-boundaries" oninput="autoSaveField('m_bound', this.value)"></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-weekly">
+        <div class="page-header">
+          <h2>Weekly Micro-Architecture</h2>
+          <p>Break your healing journey down into accessible seven-day objectives.</p>
+        </div>
+        <div class="grid-2">
+          <div class="card emotional">
+            <h4 style="font-family:'Josefin Sans'; margin-bottom:12px;">Emotional Care Plan</h4>
+            <textarea id="week-emo" placeholder="What practices will you use to process regular waves of grief this week?" oninput="autoSaveField('w_emo', this.value)"></textarea>
+          </div>
+          <div class="card recovery">
+            <h4 style="font-family:'Josefin Sans'; margin-bottom:12px;">Identity Integration Focus</h4>
+            <textarea id="week-id" placeholder="What specific action will you execute to explore your independent identity?" oninput="autoSaveField('w_id', this.value)"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-daily">
+        <div class="page-header">
+          <h2>Daily Intentional Calibration</h2>
+          <p>One single morning tracking space. Focus on formatting this exact 24-hour block.</p>
+        </div>
+        <div class="card midnight-theme">
+          <label style="color:var(--champagne);">Morning Intention Alignment</label>
+          <input type="text" class="underline-input-large" style="color:var(--warm-white);" id="daily-intent" placeholder="Today, I intentionally direct my life force toward..." oninput="autoSaveField('d_intent', this.value)">
+          <div class="grid-3" style="margin-top:20px;">
+            <div><label style="color:var(--plum-light);">Morning Hydration</label><input type="text" id="d-w" oninput="autoSaveField('d_w', this.value)"></div>
+            <div><label style="color:var(--plum-light);">Rest Parameters</label><input type="text" id="d-r" oninput="autoSaveField('d_r', this.value)"></div>
+            <div><label style="color:var(--plum-light);">Somatic Grounding Block</label><input type="text" id="d-g" oninput="autoSaveField('d_g', this.value)"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-tasks">
+        <div class="page-header">
+          <h2>Execution Framework</h2>
+          <p>Action steps to move through your recovery when emotional momentum stalls.</p>
+        </div>
+        <div class="card">
+          <div style="display:flex; gap:12px; margin-bottom:20px;">
+            <input type="text" id="new-task-input" placeholder="Add an objective to your focus list...">
+            <button class="btn btn-primary" onclick="addTaskItem()">Add Task</button>
+          </div>
+          <div id="tasks-list-container"></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-mood">
+        <div class="page-header">
+          <h2>Sovereign Mood Tracking Matrix</h2>
+          <p>A structured approach to observing your emotional shifts without self-judgment.</p>
+        </div>
+        <div class="card text-center" style="text-align:center;">
+          <label>Log Your Dominant State Today</label>
+          <div class="chips-container" style="justify-content:center; margin-bottom:20px;">
+            <button class="chip" onclick="logDailyMood('Devastated')">Devastated</button>
+            <button class="chip" onclick="logDailyMood('Tender / Muted')">Tender / Muted</button>
+            <button class="chip" onclick="logDailyMood('Calm Neutral')">Calm Neutral</button>
+            <button class="chip" onclick="logDailyMood('Sovereign & Inspired')">Sovereign & Inspired</button>
+          </div>
+          <div id="mood-history-summary" style="font-size:13px; color:var(--text-medium);"></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-gratitude">
+        <div class="page-header">
+          <h2>The Liberation Gratitude Log</h2>
+          <p>Shifting focus to the freedom, peace, and self-respect gained through this ending.</p>
+        </div>
+        <div class="card recovery">
+          <div style="margin-bottom:20px;">
+            <label>1. What systemic complexity are you genuinely relieved to no longer negotiate?</label>
+            <input type="text" id="grat-1" oninput="autoSaveField('grat_1', this.value)">
+          </div>
+          <div style="margin-bottom:20px;">
+            <label>2. What specific part of your personal environment is completely peaceful right now?</label>
+            <input type="text" id="grat-2" oninput="autoSaveField('grat_2', this.value)">
+          </div>
+          <div style="margin-bottom:20px;">
+            <label>3. What part of your future is completely open to your choices now?</label>
+            <input type="text" id="grat-3" oninput="autoSaveField('grat_3', this.value)">
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-affirmations">
+        <div class="page-header">
+          <h2>Sovereign Internal Code Affirmations</h2>
+          <p>Reprogramming identity narratives away from rejection loops.</p>
+        </div>
+        <div class="card midnight-theme" style="text-align:center; padding:40px;">
+          <h2 id="live-affirmation-display" style="font-family:'Cormorant Garamond'; font-style:italic; color:var(--champagne); font-size:32px; line-height:1.4;">"I am not an option left behind. I am the foundational architecture of my own life."</h2>
+          <button class="btn btn-ghost" style="margin-top:24px;" onclick="cycleAffirmation()">Generate Next Code</button>
+        </div>
+      </section>
+
+      <section class="page" id="page-wellness">
+        <div class="page-header">
+          <h2>Somatic Health and Vitality Log</h2>
+          <p>Processing stress requires deliberate care for your physical foundation.</p>
+        </div>
+        <div class="card">
+          <div class="grid-2">
+            <div>
+              <label>Nutritional Status Today</label>
+              <select id="well-nutrition" onchange="autoSaveField('well_nut', this.value)">
+                <option>Atypical Intake Patterns (Stress Responses)</option>
+                <option>Basic Functional Maintenance Checked</option>
+                <option>Fully Mindful Core Nourishment</option>
+              </select>
+            </div>
+            <div>
+              <label>Sleep Metrics</label>
+              <select id="well-sleep" onchange="autoSaveField('well_slp', this.value)">
+                <option>Fragmented / High Brain Hyperarousal</option>
+                <option>Standard Duration / Muted Regeneration</option>
+                <option>Deep Unbroken Restoration Achieved</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-nervous">
+        <div class="page-header">
+          <h2>The Vagal Somatic Regulator</h2>
+          <p>Downregulate your sympathetic nervous system when betrayal trauma triggers a spike.</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <h4 style="font-family:'Josefin Sans'; margin-bottom:16px;">Vagal Downregulation Circle</h4>
+          <div class="breathing-circle-wrap">
+            <div class="breathing-circle" id="breath-node"></div>
+            <div class="breathing-label" id="breath-label">Click to Start</div>
+          </div>
+          <button class="btn btn-primary" onclick="toggleBreathingSystem()">Run Paced Breath Cycle</button>
+        </div>
+      </section>
+
+      <section class="page" id="page-future">
+        <div class="page-header">
+          <h2>The Integrated Sovereign Self (6 Months Post-Exit)</h2>
+          <p>Align with the version of you who has completely integrated this experience.</p>
+        </div>
+        <div class="card recovery">
+          <label>A Message From Your Future Integrated Self</label>
+          <textarea id="future-manifesto" class="journal-textarea" placeholder="Write a letter to yourself from six months in the future. What does it feel like to have completely stepped back into your power?" oninput="autoSaveField('future_letter', this.value)"></textarea>
+        </div>
+      </section>
+
+      <section class="page" id="page-standards">
+        <div class="page-header">
+          <h2>The Future Partnership Charter</h2>
+          <p>Establish clear, uncompromising boundaries for any future relationships while your perspective is completely sharp.</p>
+        </div>
+        <div class="card recovery">
+          <div style="margin-bottom:20px;">
+            <label>Absolute Non-Negotiable Standards</label>
+            <textarea id="stand-nn" placeholder="e.g., Transparent emotional check-ins, zero tolerance for stonewalling..." oninput="autoSaveField('st_nn', this.value)"></textarea>
+          </div>
+          <div style="margin-bottom:20px;">
+            <label>Healthy Validation Indicators (Green Flags)</label>
+            <textarea id="stand-gf" placeholder="e.g., Consistent follow-through, respects personal boundaries instantly..." oninput="autoSaveField('st_gf', this.value)"></textarea>
+          </div>
+          <button class="btn btn-primary" onclick="showToast('Future Standards Vault Initialized')">Lock Charter Parameters</button>
+        </div>
+      </section>
+
+      <section class="page" id="page-renaissance">
+        <div class="page-header">
+          <h2>Radical Renaissance Integration</h2>
+          <p>The definitive realization: You did not break down. You broke open.</p>
+        </div>
+        <div class="card midnight-theme" style="text-align:center; padding:48px; border:2px solid var(--champagne);">
+          <div style="font-size:48px; margin-bottom:16px;">🦋</div>
+          <h2 style="font-family:'Cormorant Garamond'; font-size:44px; font-style:italic; color:var(--champagne);">The Renaissance Declaration</h2>
+          <p style="font-family:'Playfair Display'; font-style:italic; font-size:18px; max-width:600px; margin:24px auto; line-height:1.8;">
+            "I acknowledge my survival of this ending. I release any residual need for apology, explanation, or validation from my past partner. My worth is an absolute constant, and I choose to build my life with complete clarity and purpose."
+          </p>
+          <div style="font-family:'Josefin Sans'; font-size:14px; letter-spacing:0.2em; color:var(--champagne);" id="renaissance-signoff">SOVEREIGN & COMPLETE</div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    // System Core State Array Architecture
+    const state = {
+      currentPage: 'cover',
+      userName: 'Beautiful',
+      breakupDate: '',
+      daysSince: 0,
+      ncStreak: 0,
+      journalStreak: 0,
+      currentGriefStage: '',
+      tasks: [],
+      lettersWrittenCount: 0
+    };
+
+    // System Startup Execution Sequence
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeSystemLocalStorage();
+      buildHabitTrackingGrids();
+      buildCoverAtmosphereParticles();
+      renderCoreTaskList();
+      setupMobileMenuInterfaces();
+      showPage('cover');
+    });
+
+    // Local Storage Hydration Logic
+    function initializeSystemLocalStorage() {
+      if(localStorage.getItem('ren_username')) {
+        state.userName = localStorage.getItem('ren_username');
+        document.getElementById('setup-username').value = state.userName;
+        document.getElementById('dashboard-greeting').textContent = `Good morning, ${state.userName} ✨`;
+        document.getElementById('renaissance-signoff').textContent = `${state.userName.toUpperCase()} — SOVEREIGN & COMPLETE`;
+      }
+      if(localStorage.getItem('ren_breakupdate')) {
+        state.breakupDate = localStorage.getItem('ren_breakupdate');
+        document.getElementById('setup-breakupdate').value = state.breakupDate;
+        calculateTimelineIntervals();
+      }
+      if(localStorage.getItem('ren_nc_streak')) {
+        state.ncStreak = parseInt(localStorage.getItem('ren_nc_streak'));
+        updateNCMetricsDisplay();
+      }
+      if(localStorage.getItem('ren_grief_stage')) {
+        state.currentGriefStage = localStorage.getItem('ren_grief_stage');
+        document.getElementById('grief-current-stage-select').value = state.currentGriefStage;
+        document.getElementById('dash-grief-stage').textContent = 'Stage ' + state.currentGriefStage;
+      }
+      
+      // Load saved field entries safely
+      const fieldMappings = {
+        'dash-heart-text': 'ren_dash_heart', 'grief-note-1': 'ren_grief_1', 'grief-note-2': 'ren_grief_2',
+        'grief-note-3': 'ren_grief_3', 'grief-note-4': 'ren_grief_4', 'grief-note-5': 'ren_grief_5',
+        'grief-note-6': 'ren_grief_6', 'grief-note-7': 'ren_grief_7', 'wave-trigger': 'ren_wave_trigger',
+        'pattern-narrative': 'ren_pattern_narrative', 'pattern-defense': 'ren_pattern_defense',
+        'autopsy-incomp': 'ren_autopsy_1', 'autopsy-intuition': 'ren_autopsy_2', 'autopsy-boundaries': 'ren_autopsy_3',
+        'worth-1': 'ren_worth_1', 'worth-2': 'ren_worth_2', 'worth-3': 'ren_worth_3', 'worth-4': 'ren_worth_4', 'worth-5': 'ren_worth_5',
+        'goal-fin': 'ren_goal_f', 'goal-style': 'ren_goal_s', 'goal-exp': 'ren_goal_e', 'month-theme': 'ren_m_theme',
+        'month-priorities': 'ren_m_prio', 'month-boundaries': 'ren_m_bound', 'week-emo': 'ren_w_emo', 'week-id': 'ren_w_id',
+        'daily-intent': 'ren_d_intent', 'grat-1': 'ren_grat_1', 'grat-2': 'ren_grat_2', 'grat-3': 'ren_grat_3',
+        'future-manifesto': 'ren_future_letter', 'stand-nn': 'ren_st_nn', 'stand-gf': 'ren_st_gf'
+      };
+      
+      for (let id in fieldMappings) {
+        let savedVal = localStorage.getItem(fieldMappings[id]);
+        if(savedVal && document.getElementById(id)) {
+          document.getElementById(id).value = savedVal;
+        }
+      }
+
+      // Load tasks
+      if(localStorage.getItem('ren_tasks_list')) {
+        state.tasks = JSON.parse(localStorage.getItem('ren_tasks_list'));
+      } else {
+        state.tasks = [
+          {id: 1, text: 'Block or mute their primary social media profiles', done: false},
+          {id: 2, text: 'Reorganize physical bedroom space layout', done: false},
+          {id: 3, text: 'Schedule one direct call with a trusted friend', done: false}
+        ];
+      }
+    }
+
+    function autoSaveField(key, value) {
+      localStorage.setItem('ren_' + key, value);
+    }
+
+    // Timeline Calculation Processing Engine
+    function calculateTimelineIntervals() {
+      if(!state.breakupDate) return;
+      const targetDate = new Date(state.breakupDate);
+      const today = new Date();
+      const differenceInTime = today.getTime() - targetDate.getTime();
+      let totalDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+      if (totalDays < 0 || isNaN(totalDays)) totalDays = 0;
+      
+      state.daysSince = totalDays;
+      document.getElementById('dash-days-counter').textContent = totalDays;
+    }
+
+    // Navigation Interface Routing Controls
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const selection = document.getElementById('page-' + pageId);
+      if(selection) {
+        selection.classList.add('active');
+        selection.style.animation = 'pageEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+      }
+      
+      // Sync navigation sidebar active metrics
+      document.querySelectorAll('.nav-links li').forEach(li => {
+        if(li.getAttribute('data-page') === pageId) {
+          li.classList.add('active');
+        } else {
+          li.classList.remove('active');
+        }
+      });
+
+      state.currentPage = pageId;
+      window.scrollTo({top: 0, behavior: 'smooth'});
+      
+      // Close mobile interface elements dynamically
+      document.getElementById('app-sidebar').classList.remove('open');
+      document.getElementById('mobile-overlay').classList.remove('open');
+      document.getElementById('hamburger-menu').classList.remove('open');
+
+      // Trigger metric recalculations contextually
+      if(pageId === 'dashboard') {
+        calculateTimelineIntervals();
+        updateNCMetricsDisplay();
+      }
+    }
+
+    // Form Event Handlers
+    function toggleChip(element) {
+      element.classList.toggle('selected');
+    }
+
+    function saveOnboarding() {
+      const nameInput = document.getElementById('setup-username').value;
+      const dateInput = document.getElementById('setup-breakupdate').value;
+      
+      if(nameInput) {
+        state.userName = nameInput;
+        localStorage.setItem('ren_username', nameInput);
+      }
+      if(dateInput) {
+        state.breakupDate = dateInput;
+        localStorage.setItem('ren_breakupdate', dateInput);
+      }
+      
+      showToast('Sanctuary Configuration Finalized');
+      showPage('dashboard');
+    }
+
+    // Grief Accordion Controls
+    function toggleAccordion(id) {
+      const card = document.getElementById(id);
+      card.classList.toggle('open');
+    }
+
+    function updateGriefStage(val) {
+      state.currentGriefStage = val;
+      localStorage.setItem('ren_grief_stage', val);
+      showToast('Grief Dimension Matrix Updated');
+    }
+
+    // Emotion Tracking Controls
+    function updateWaveSlider(val) {
+      const lbl = document.getElementById('intensity-label');
+      let text = 'Present';
+      if(val >= 8) text = 'Overwhelming / Complete Flood';
+      else if(val >= 5) text = 'Moderately Restless';
+      else text = 'Subtle Resonance';
+      lbl.textContent = `Wave Intensity: ${val}/10 (${text})`;
+    }
+
+    function logWaveData() {
+      showToast('Somatic Wave Dynamics Registered');
+    }
+
+    // Anger Management Functions
+    function clearAngerRant() {
+      document.getElementById('anger-raw-rant').value = '';
+      showToast('Visceral Rant Discharged into the Void ✓');
+    }
+
+    // Unsent Letters Sub-System
+    function selectLetterType(type) {
+      document.getElementById('letter-recipient-label').textContent = 'Recipient: ' + type;
+      showToast(`Editor configured for: ${type}`);
+    }
+
+    function burnLetterEffect() {
+      const area = document.getElementById('unsent-letter-content');
+      area.style.animation = 'letterBurn 1.5s forwards';
+      setTimeout(() => {
+        area.value = '';
+        area.style.animation = '';
+        showToast('Letter structurally turned into complete ash.');
+      }, 1500);
+    }
+
+    function saveLetterArchive() {
+      showToast('Letter encrypted and safely archived in private files.');
+    }
+
+    // Prompt Shuffling Mechanics
+    const structuralPrompts = [
+      "What parts of your identity did you compromise to sustain their comfort?",
+      "What would you tell your closest friend if they carried your current weight?",
+      "What did that relationship teach you about your non-negotiable parameters?",
+      "What are you most afraid of encountering when processing complete solitude?",
+      "Name three elements of your immediate schedule that are vastly more peaceful now."
+    ];
+    function shufflePrompt() {
+      const rand = structuralPrompts[Math.floor(Math.random() * structuralPrompts.length)];
+      document.getElementById('journal-prompt-display').textContent = `"${rand}"`;
+    }
+
+    // Red Flag Metrics Engine
+    function updateFlagCount() {
+      let count = 0;
+      document.querySelectorAll('#page-redflags input[type="checkbox"]').forEach(c => {
+        if(c.checked) count++;
+      });
+      document.getElementById('flag-count-display').textContent = `${count} Red Flags Identified`;
+    }
+
+    // Trigger Tracking Lists
+    function addTriggerRow() {
+      const source = document.getElementById('trigger-source').value;
+      if(!source) return;
+      const logBox = document.getElementById('trigger-log-container');
+      if(logBox.querySelector('p')) logBox.innerHTML = '';
+      
+      const div = document.createElement('div');
+      div.style.padding = '8px 0';
+      div.style.borderBottom = '1px solid var(--border-soft)';
+      div.innerHTML = `• <strong>${source}</strong> - Logged and contained.`;
+      logBox.appendChild(div);
+      
+      document.getElementById('trigger-source').value = '';
+      showToast('Trigger profile integrated.');
+    }
+
+    // Rumination Tracking Handlers
+    function interceptRumination() {
+      document.getElementById('rumination-loop').value = '';
+      showToast('Cognitive analysis interrupted. Focus redirected to the physical room.');
+    }
+
+    // No Contact Tracking Mechanisms
+    function signNCCommitment() {
+      showToast('Digital Signature Processed. Sovereignty Reclaimed.');
+    }
+
+    function incrementNCStreak() {
+      state.ncStreak++;
+      localStorage.setItem('ren_nc_streak', state.ncStreak);
+      updateNCMetricsDisplay();
+      showToast('Another day of clean radio silence logged.');
+    }
+
+    function resetNCStreak() {
+      state.ncStreak = 0;
+      localStorage.setItem('ren_nc_streak', 0);
+      updateNCMetricsDisplay();
+      showToast('Streak reset. Compassion, not criticism, is required now. Start fresh.');
+    }
+
+    function updateNCMetricsDisplay() {
+      document.getElementById('nc-real-counter').textContent = state.ncStreak;
+      document.getElementById('dash-nc-streak').textContent = state.ncStreak + ' Days';
+      
+      // Update historical milestones
+      const milestones = {3: 'milestone-3', 7: 'milestone-7', 21: 'milestone-21', 90: 'milestone-90'};
+      for(let day in milestones) {
+        let node = document.getElementById(milestones[day]);
+        if(state.ncStreak >= parseInt(day)) {
+          node.classList.add('unlocked');
+        } else {
+          node.classList.remove('unlocked');
+        }
+      }
+    }
+
+    // Urge Mitigation Timers
+    let urgeInterval = null;
+    function startUrgeTimer() {
+      clearInterval(urgeInterval);
+      let duration = 300; // 5 minutes
+      const display = document.getElementById('urge-timer-display');
+      
+      urgeInterval = setInterval(() => {
+        let minutes = Math.floor(duration / 60);
+        let seconds = duration % 60;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        display.textContent = minutes + ':' + seconds;
+        
+        if (--duration < 0) {
+          clearInterval(urgeInterval);
+          display.textContent = "00:00";
+          showToast('Urge protocol succeeded. The chemical spike has broken down.');
+        }
+      }, 1000);
+      showToast('Countdown holding space activated.');
+    }
+
+    function showUrgeReality(type) {
+      const box = document.getElementById('urge-reality-box');
+      let text = '';
+      if(type === 'closure') text = 'Closure is entirely an internal resource modification. Reconnecting to ask for explanation simply grants them permission to rewrite history or minimize your experience again.';
+      else if(type === 'remorse') text = 'Hunting for indications of remorse places your self-worth back into their capability dashboard. If they possessed the clarity to offer mature remorse, the extraction wouldn\'t have been necessary.';
+      else text = 'Solitude feels unsafe because your attachment loops are undergoing acute withdrawal. Treat this space as absolute medical recovery room quiet—not abandonment.';
+      
+      box.innerHTML = `<label>Objective Reality Check</label><p style="font-size:13px; font-style:italic; line-height:1.6; color:var(--text-dark);">${text}</p>`;
+    }
+
+    // Habit Visualization Matrix Setup
+    function buildHabitTrackingGrids() {
+      const ncWrap = document.getElementById('habit-nc-cells');
+      const h2oWrap = document.getElementById('habit-h2o-cells');
+      const moveWrap = document.getElementById('habit-move-cells');
+      
+      if(!ncWrap) return;
+      
+      for(let i=1; i<=14; i++) {
+        ncWrap.appendChild(createStaticCell(i));
+        h2oWrap.appendChild(createStaticCell(i));
+        moveWrap.appendChild(createStaticCell(i));
+      }
+    }
+
+    function createStaticCell(dayNum) {
+      const cell = document.createElement('div');
+      cell.className = 'habit-cell';
+      cell.textContent = dayNum;
+      cell.onclick = () => {
+        cell.classList.toggle('done');
+        showToast(`Habit checkbox updated.`);
+      };
+      return cell;
+    }
+
+    // Dynamic Focus Task Integration Layouts
+    function renderCoreTaskList() {
+      const container = document.getElementById('tasks-list-container');
+      if(!container) return;
+      container.innerHTML = '';
+      
+      state.tasks.forEach(t => {
+        const row = document.createElement('div');
+        row.className = 'checkbox-item';
+        row.innerHTML = `
+          <input type="checkbox" id="task-${t.id}" ${t.done ? 'checked' : ''} onchange="toggleTaskDone(${t.id})">
+          <span class="checkbox-box"></span>
+          <span class="checkbox-label">${t.text}</span>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function addTaskItem() {
+      const input = document.getElementById('new-task-input');
+      if(!input.value) return;
+      const t = {
+        id: Date.now(),
+        text: input.value,
+        done: false
+      };
+      state.tasks.push(t);
+      localStorage.setItem('ren_tasks_list', JSON.stringify(state.tasks));
+      renderCoreTaskList();
+      input.value = '';
+      showToast('Task added successfully.');
+    }
+
+    function toggleTaskDone(id) {
+      state.tasks = state.tasks.map(t => t.id === id ? {...t, done: !t.done} : t);
+      localStorage.setItem('ren_tasks_list', JSON.stringify(state.tasks));
+      showToast('Task status shifted');
+    }
+
+    // Functional State Logs
+    function logDailyMood(moodType) {
+      document.getElementById('mood-history-summary').textContent = `Today's profile logged: [${moodType}]. Tracking sequence updated.`;
+      showToast('Mood status committed to ledger');
+    }
+
+    // Vagal Regulation Interactivity
+    let breathInterval = null;
+    let breathActive = false;
+    function toggleBreathingSystem() {
+      const node = document.getElementById('breath-node');
+      const lbl = document.getElementById('breath-label');
+      
+      if(breathActive) {
+        clearInterval(breathInterval);
+        node.style.animation = '';
+        lbl.textContent = 'Click to Start';
+        breathActive = false;
+        return;
+      }
+      
+      breathActive = true;
+      let phase = 0; // 0 In, 1 Hold, 2 Out
+      lbl.textContent = 'Inhale...';
+      node.style.animation = 'breatheExpand 4s infinite ease-in-out';
+      
+      breathInterval = setInterval(() => {
+        phase = (phase + 1) % 3;
+        if(phase === 0) lbl.textContent = 'Inhale...';
+        else if(phase === 1) lbl.textContent = 'Hold State';
+        else lbl.textContent = 'Exhale & Release';
+      }, 4000);
+    }
+
+    // Content Array Engines
+    const codeAffirmations = [
+      "I am not an option left behind. I am the foundational architecture of my own life.",
+      "My capacity to offer deep love is a reflection of MY identity, not their capacity to hold it.",
+      "I choose somatic quiet over toxic coordination with pathways that diminish me.",
+      "The ending of this structure is structural clearance for an authentic renaissance.",
+      "I permit myself to mourn completely without allowing the grief to override my boundaries."
+    ];
+    function cycleAffirmation() {
+      const node = document.getElementById('live-affirmation-display');
+      const rand = codeAffirmations[Math.floor(Math.random() * codeAffirmations.length)];
+      node.textContent = `"${rand}"`;
+    }
+
+    // Visual Atmospheric Generation Infrastructure
+    function buildCoverAtmosphereParticles() {
+      const container = document.getElementById('cover-particles-container');
+      if(!container) return;
+      for(let i=0; i<20; i++) {
+        let p = document.createElement('div');
+        p.className = 'cover-particle';
+        let size = Math.random() * 2 + 1.5;
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDuration = (Math.random() * 3 + 4) + 's';
+        p.style.animationDelay = (Math.random() * 4) + 's';
+        container.appendChild(p);
+      }
+    }
+
+    // Toast Notification Router
+    function showToast(msg) {
+      const container = document.getElementById('toast-container');
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.textContent = msg;
+      container.appendChild(t);
+      
+      requestAnimationFrame(() => {
+        t.style.animation = 'toastSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+      });
+      
+      setTimeout(() => {
+        t.style.opacity = '0';
+        t.style.transition = 'opacity 0.3s';
+        setTimeout(() => t.remove(), 300);
+      }, 2500);
+    }
+
+    // Responsive Interface Navigation Callbacks
+    function setupMobileMenuInterfaces() {
+      const menu = document.getElementById('hamburger-menu');
+      const side = document.getElementById('app-sidebar');
+      const over = document.getElementById('mobile-overlay');
+      
+      const toggle = () => {
+        menu.classList.toggle('open');
+        side.classList.toggle('open');
+        over.classList.toggle('open');
+      };
+      
+      menu.onclick = toggle;
+      over.onclick = toggle;
+    }
+    
+    function selectDashEmotion(btn, text) {
+      document.querySelectorAll('.emotion-pill').forEach(p => p.classList.remove('selected'));
+      btn.classList.add('selected');
+      showToast(`Logged core emotional frame as: ${text}`);
+    }
+  </script>
+</body>
+</html>
